@@ -38,9 +38,14 @@ describe('GCM', function () {
 
       expect(gcm.Sender).to.be.calledWith('myApiKey');
       expect(senderMock.send).to.be.calledWith(sinon.match({
-        collapseKey: 'myCollapseKey',
-        data: {message: 'my message', title: 'my title'}
-      }), ['myRegistrationId'], 4);
+        params: {
+          collapseKey: 'myCollapseKey',
+          data: {
+            message: 'my message',
+            title: 'my title'
+          }
+        }
+      }), {registrationTokens: ['myRegistrationId']}, 4);
     });
 
     it('should be possible to send to several registration ids', function () {
@@ -55,9 +60,14 @@ describe('GCM', function () {
 
       expect(gcm.Sender).to.be.calledWith('myApiKey');
       expect(senderMock.send).to.be.calledWith(sinon.match({
-        collapseKey: 'myCollapseKey',
-        data: {message: 'my message', title: 'my title'}
-      }), ['myRegistrationId1', 'myRegistrationId2'], 4);
+        params: {
+          collapseKey: 'myCollapseKey',
+          data: {
+            message: 'my message',
+            title: 'my title'
+          }
+        }
+      }), {registrationTokens: ['myRegistrationId1', 'myRegistrationId2']}, 4);
     });
 
     describe('with an error', function () {
@@ -78,10 +88,18 @@ describe('GCM', function () {
         });
 
         expect(transmissionErrorSpy).to.be.calledWith('error', sinon.match({
-          data: {foo: 'bar'}
+          params: {
+            data: {
+              foo: 'bar'
+            }
+          }
         }), 'myRegistrationId1');
         expect(transmissionErrorSpy).to.be.calledWith('error', sinon.match({
-          data: {foo: 'bar'}
+          params: {
+            data: {
+              foo: 'bar'
+            }
+          }
         }), 'myRegistrationId2');
         expect(transmittedSpy).to.not.be.called;
       });
@@ -109,10 +127,18 @@ describe('GCM', function () {
         });
 
         expect(transmissionErrorSpy).to.be.calledWith('error', sinon.match({
-          data: {foo: 'bar'}
+          params: {
+            data: {
+              foo: 'bar'
+            }
+          }
         }), 'myRegistrationId1');
         expect(transmissionErrorSpy).to.not.be.calledWith('error', sinon.match({
-          data: {foo: 'bar'}
+          params: {
+            data: {
+              foo: 'bar'
+            }
+          }
         }), 'myRegistrationId2');
         expect(transmittedSpy).to.not.be.called;
       });
@@ -167,10 +193,18 @@ describe('GCM', function () {
         });
 
         expect(transmittedSpy).to.be.calledWith({res1: true}, sinon.match({
-          data: {foo: 'bar'}
+          params: {
+            data: {
+              foo: 'bar'
+            }
+          }
         }), 'myRegistrationId1');
         expect(transmittedSpy).to.be.calledWith({res2: true}, sinon.match({
-          data: {foo: 'bar'}
+          params: {
+            data: {
+              foo: 'bar'
+            }
+          }
         }), 'myRegistrationId2');
         expect(transmissionErrorSpy).to.not.be.called;
       });
