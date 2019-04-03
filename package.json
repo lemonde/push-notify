@@ -1,17 +1,8 @@
 {
   "private": true,
-  "name": "push-notify",
+  "name": "lmd-push-notify",
   "version": "1.2.0",
   "description": "Easily send notifications over multiple protocols.",
-  "keywords": [
-    "notification",
-    "push",
-    "apns",
-    "apn",
-    "c2dm",
-    "mpns",
-    "gcm"
-  ],
   "scripts": {
     "test": "mocha --recursive test/unit"
   },
